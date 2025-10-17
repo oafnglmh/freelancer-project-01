@@ -1,0 +1,170 @@
+*{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+.trungdz1 {
+    margin-top: 0px;
+    display: flex;
+    padding: 0 35px;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+
+    z-index: 88888;
+}
+
+.caroule1 {
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.imgslider1 {
+
+    margin-left: 10px;
+    width: calc(100%/3);
+    height: 600px;
+}
+
+.item12 {
+    overflow: hidden;
+    position: relative;
+}
+
+.item12 img {
+
+    width: 316px;
+    height: 500px;
+}
+
+.mangche {
+    display: flex;
+    background-color: #000;
+    opacity: 0.5;
+    width: 350px;
+    height: 500px;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    position: absolute;
+    transition: 0.5s;
+    margin-left: -400px;
+}
+
+.mangche a {
+    text-decoration: none;
+}
+
+.tuvan {
+    color: rgb(255, 255, 255);
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+    width: 300px;
+    border: 2px solid white;
+    font-size: 20px;
+}
+
+.item12:hover .mangche {
+    opacity: 0.7;
+    margin-left: -18px;
+}
+
+.mangche a:hover .tuvan {
+    color: #000;
+    opacity: 1;
+    background-color: #ffffff;
+}
+
+.info1 {
+    margin-top: 2px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    text-align: center;
+}
+
+.info1 a span {
+    font-size: 14px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #b2abab;
+
+}
+
+.info1 a {
+    text-decoration: none;
+
+}
+
+.info1 h4 {
+    padding-top: 12px;
+    font-size: 16px;
+
+}
+
+.wrapper1 {
+
+    max-width: 100%;
+    position: relative;
+}
+
+.wrapper1 i {
+    top: 40%;
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 10000;
+
+    text-align: center;
+    line-height: 46px;
+    z-index: 1000;
+    transform: translateY(-50%);
+    background: rgb(238, 238, 238);
+}
+
+.wrapper1 i:first-child {
+    left: -23px
+}
+
+.wrapper1 i:last-child {
+    right: -23px;
+}
+
+@media screen and (max-width:910px) {
+    .caroule1 .imgslider1 {
+        width: calc(100%/1);
+    }
+
+}
+
+@media screen and (max-width:550px) {
+    .caroule1 .imgslider1 {
+        width: calc(100%/1)+10px;
+        margin-left: 14px;
+    }
+
+    .item12:hover .mangche {
+        opacity: 0.7;
+        margin-left: 0px;
+        transform: translatex(0%)
+    }
+
+    .item12 .tuvan {
+        width: 170px;
+    }
+
+    .item12 .mangche {
+        width: 300px;
+    }
+
+    .item12 .mangche a {
+        width: 150px;
+        margin-left: -20px;
+    }
+}

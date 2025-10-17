@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+.menu2 {
+    width: 100%;
+    display: flex;
+    padding-top:150px ;
+}
+
+.menu2 .menu2-left {
+    width: 50%;
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+}
+.chu{
+    width: 50%;
+}
+.logo img {
+    width: 230px;
+}
+.MAP{
+    width: 50%;
+}
+.MAP iframe {
+    width: 90%;
+    height: 290px;
+}
+.info {
+    margin: 10px 0px 10px 0px;
+    font-size: 13px;
+}
+
+.info a {
+    text-decoration: none;
+    color: rgb(100, 144, 219);
+}
+
+.thongtinthanhtoan {
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.dtk {
+    font-size: 14px;
+    color: rgb(155, 155, 155);
+    padding-bottom: 10px;
+}
+
+.dtk a {
+    text-decoration: none;
+    font-size: 14px;
+    color: rgb(100, 144, 219);
+}
+
+input[type="text"] {
+    height: 40px;
+    border: 1px solid rgb(93, 93, 93);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 14px;
+    
+    margin-top: 15px;
+    padding-left: 5px;
+}
+input[type="tel"] {
+    height: 40px;
+    width: none;
+    border: 1px solid rgb(93, 93, 93);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 14px;
+    margin-top: 15px;
+    padding-left: 5px;
+}
+
+input[type="email"] {
+    height: 40px;
+    border: 1px solid rgb(93, 93, 93);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 14px;
+    margin-top: 15px;
+    padding-left: 5px;
+
+}
+
+select {
+    margin-top: 15px;
+    height: 40px;
+
+}
+
+.gioihang {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gioihang1 {
+    color: rgb(100, 144, 219);
+}
+
+.phuongthucthanhtoan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    width: 200px;
+    background-color: rgb(100, 144, 219);
+}
+
+.menu2-right {
+    padding-right: 130PX;
+    padding-left: 100px;
+    width: 50%;
+    background-color: rgba(247, 247, 247, 0.877);
+}
+
+.sp {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.sp img {
+    width: 60px;
+    height: 60px;
+}
+
+.namedam {
+    margin-left: 10px;
+}
+
+.tien {
+    margin-left: 100px;
+}
+
+.tamtinh {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    display: flex;
+
+}
+
+.tientinh {
+    margin-left: 320px;
+}
+
+.tientong {
+    margin-left: 273px;
+    font-size: 18px;
+}
+
+.tongtien {
+    margin-top: 10px;
+    display: flex;
+
+
+}
+
+@media(max-width:600px) {
+    .menu2-right {
+        padding-right: 0;
+        padding-top: 100px;
+        padding-left: 0;
+        width: 100%;
+        background-color: rgba(247, 247, 247, 0.877);
+    }
+
+    .menu2 .menu2-left {
+        width: 100%;
+
+    }
+
+    .tamtinh1 {
+        margin-left: 10px;
+    }
+
+    .tientinh {
+        margin-left: 250px;
+    }
+
+    .tongtien1 {
+        margin-left: 10px;
+    }
+
+    .tientong {
+        margin-left: 250px;
+    }
+
+    .tongtien {
+        margin-bottom: 50px;
+
+    }
+
+    .menu2 {
+        width: 100%;
+        flex-direction: column;
+    }
+}

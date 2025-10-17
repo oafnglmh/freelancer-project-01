@@ -1,0 +1,91 @@
+*{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}   
+.trungdzblog {
+    display: flex;
+    padding: 0 35px;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+
+    z-index: 8888899;
+}
+
+.carouleblog {
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.imgsliderblog {
+
+    margin-left: 10px;
+    width: calc(100%/3);
+    height: 400px;
+}
+
+.item1blog {
+    position: relative;
+}
+
+.item1blog img {
+
+    width: 350px;
+    height: 250px;
+}
+
+
+.infoblog {
+    text-align: center;
+}
+
+.wrapperblog {
+
+    max-width: 100%;
+    position: relative;
+}
+
+.wrapperblog i {
+    top: 30%;
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 46px;
+    z-index: 10000;
+    transform: translateY(-50%);
+    background: rgb(238, 238, 238);
+}
+
+.infoblog span {
+    font-size: 13;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    ;
+
+
+}
+
+.wrapperblog i:first-child {
+    left: -23px
+}
+
+.wrapperblog i:last-child {
+    right: -23px;
+}
+
+@media screen and (max-width:910px) {
+    .carouleblog .imgsliderblog {
+        width: calc(100%/1);
+    }
+
+}
+
+@media screen and (max-width:550px) {
+    .carouleblog .imgsliderblog {
+        width: (calc(100%/1)-2003px);
+    }
+}

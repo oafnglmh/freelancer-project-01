@@ -1,0 +1,108 @@
+@extends('layout.content')
+@section('other')
+    <link rel="stylesheet" href="{{ asset('user-asset/CSS/giohang.css') }}">
+@endsection
+@section('content')
+
+    <body>
+
+        <div class="linksmall">
+
+            <a href="./index.html"> TRANG CHỦ </a>
+            <span>/</span>
+            <a href=""> ĐƠN HÀNG CỦA BẠN - LVT SHOP
+                <h1><b>CHI TIẾT ĐƠN HÀNG {{$id}}</b></h1>
+            </a>
+
+        </div>
+
+
+
+        <style>
+            .table th,
+            .table td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
+        <form action="">
+            <table class="table" style="margin-top: 40px">
+                <thead>
+                    <tr>
+                        <th scope="col"style="width: 200px;">STT</th>
+                        <th scope="col" style="width: 400px;"> Sản Phẩm</th>
+                        <th scope="col">Số Lượng</th>
+                        <th scope="col">Số Tiền</th>
+                        <th scope="col">Thành Tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $count = 0;
+                    @endphp
+                    @foreach ($orders as $order)
+                        @php
+                            $count = $count + 1;
+                        @endphp
+                        <tr>
+                            <th scope="row"> {{ $count }}</th>
+                            <td><img style="width: 100px; height: 130px;" src="/user-asset/img/{{ $order->sp_hinh }}"
+                                    alt="">  <br>
+                               <a style="text-decoration: none " href="/product/{{ $order->ma_sp}}">{{ $order->sp_ten }}</a>  <br> {{ $order->size }}/{{ $order->color }}
+
+                            </td>
+                            <td>{{ $order->soluong }}</td>
+                            <td>{{ number_format($order->gia, 0, ',', '.') }} VND</td>
+                            <@php
+                                $sum = $order->gia * $order->soluong;
+                            @endphp <td> {{ number_format($sum, 0, ',', '.') }} VND
+                                </td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+
+        </form>
+
+
+
+        </div>
+        <div class="dangkibangtien">
+            <div class="MAP">
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7333963918236!2d108.24978007500275!3d15.97529308469066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4!5e0!3m2!1svi!2s!4v1686645400615!5m2!1svi!2s"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="chu">
+                <div class="dangkibangtin"> Đăng Kí Bảng Tin </div>
+                <div class="dangkibangtinmail">
+                    Đăng kí bảng tin để nhận mẫu thiết kế mới nhất
+                </div>
+
+                <input type="text" placeholder="Vui lòng nhập email.... " />
+                <input
+                    style="height: 40px;width: 50px ; background-color: rgb(0, 0, 0);color: aliceblue; margin-left:-2px ;"
+                    type="submit" value="Gửi"> <br>
+                <div class="icon">
+                    <a href="" class="facebook">
+                        <div class="fa-brands fa-facebook"></div>
+                    </a>
+                    <a href="" class="instagram">
+                        <div class="fa-brands fa-instagram"></div>
+                    </a>
+                    <a href="" class="youtube">
+                        <div class="fa-brands fa-youtube"></div>
+                    </a>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </body>
+
+    </html>
