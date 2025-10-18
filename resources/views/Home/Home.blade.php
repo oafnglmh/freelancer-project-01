@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="{{ asset('user-asset/CSS/slider1.css') }}">
     <link rel="stylesheet" href="{{ asset('user-asset/CSS/sliderblog.css') }}">
     <link rel="stylesheet" href="{{ asset('user-asset/CSS/Home.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="{{ asset('user-asset/JS/javascrip.js') }}" defer></script>
     <script src="{{ asset('user-asset/JS/jsao.js') }}" defer></script>
     <script src="{{ asset('user-asset/JS/jsblog.js') }}" defer></script>
@@ -162,5 +160,5 @@
 </script>
 
 {{-- Bootstrap JS --}}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
 @endsection

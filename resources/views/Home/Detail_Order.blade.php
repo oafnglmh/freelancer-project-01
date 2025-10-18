@@ -194,7 +194,8 @@
     <!-- Footer: Map + Newsletter -->
     <div class="order-footer animate-fade">
         <div class="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?...your_link..."
+                    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <div class="newsletter-box">
             <h3>Đăng Kí Bảng Tin</h3>

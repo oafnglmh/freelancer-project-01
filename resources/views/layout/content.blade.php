@@ -25,7 +25,7 @@
     {{-- ===== Top Bar ===== --}}
     <div class="top-bar d-flex justify-content-between align-items-center px-3">
         <a href="{{ route('viewhome') }}" class="top-link"><i class="fa fa-home me-2"></i>Hệ Thống Cửa Hàng</a>
-        <a href="tel:0999999999" class="top-link"><i class="fa fa-phone me-2"></i>0999999999</a>
+        <a href="tel:0368535276" class="top-link"><i class="fa fa-phone me-2"></i>0368535276</a>
     </div>
 
     {{-- ===== Header / Navbar ===== --}}

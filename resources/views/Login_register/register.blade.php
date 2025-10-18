@@ -1,4 +1,4 @@
-@extends('layout.content');
+@extends('layout.content')
 {{-- kết thừa layout --}}
 
 @section('other')
