@@ -1,153 +1,153 @@
 @extends('layout.content')
+
 @section('other')
-<link rel="stylesheet" href="{{asset('user-asset/CSS/sanpham.css')}}">
+<link rel="stylesheet" href="{{ asset('user-asset/CSS/pagesp02.css') }}">
 @endsection
-@section('content ')
 
+@section('content')
 
-<div class="linksmall">
-
-    <a href="./index.html"> TRANG CHỦ </a>
-    <span>/</span>
-    <a href="">TẤT CẢ CÁC SẢN PHẨM</a>
-
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+    <a href="/">Trang chủ</a> <span>/</span>
+    <a href="#">Tất cả sản phẩm</a>
 </div>
 
-<div class="allanh">
-    <img src="../img/allsp.webp" alt="">
+<!-- Banner -->
+<div class="banner">
+    <img src="{{ asset('user-asset/img/1700061705-slide.webp') }}" alt="Banner sản phẩm">
 </div>
-<div class="home">
-    <div class="home-left">
-        <ul>
-            <li><a href=""><b>Danh mục</b></a></li>
-            <li><a href=""><b>Tất cả sản phẩm</b></a></li>
+
+<!-- Main Product Page -->
+<div class="product-page">
+
+    <!-- Sidebar -->
+    <aside class="product-page__sidebar">
+        <h4 class="sidebar__title">Danh mục</h4>
+        <ul class="sidebar__menu">
+            <li><a href="#">Tất cả sản phẩm</a></li>
             @foreach ($type_products as $type_product)
-            <li><a href="/collections/product/{{$type_product->url  }}"><b>{{$type_product->name_type}}</b></a></li>
-
+            <li><a href="/collections/product/{{ $type_product->url }}">{{ $type_product->name_type }}</a></li>
             @endforeach
-
-
         </ul>
-    </div>
+    </aside>
+
     @if($results->isEmpty())
-    <h1>Không có sản phẩm</h1>
+    <h2 class="product-page__empty">Không có sản phẩm</h2>
     @else
+    <!-- Product Main -->
+    <div class="product-page__main">
 
-
-
-
-    <div class="home-right">
-        <div class="home-right-heading">
+        <!-- Header -->
+        <div class="product-page__header">
             <h3>TẤT CẢ SẢN PHẨM</h3>
         </div>
-        <div class="home-right-tools">
-            <div class="color">
-                Màu Sắc
-                <i class="fa-solid fa-chevron-down"></i>
-                <div class="tablecolor">
+
+        <!-- Filters -->
+        <div class="product-page__filters">
+            <!-- Color Filter -->
+            <div class="filter filter--color">
+                <span class="filter__title">Màu sắc <i class="fa-solid fa-chevron-down"></i></span>
+                <div class="filter__dropdown">
                     @foreach($colors as $color)
-                    <a href="/productSearch/{{$color->id}}" class="mau" style="
-                    width: 40px;
-                    border: 1px solid black;
-                    height: 40px;
-                    margin-left: 4px;
-                    border-radius: 50%;
-                    background-color: {{$color->color}};">
-                    </a>
+                    <a href="/productSearch/{{ $color->id }}" class="filter__color-swatch" style="background-color: {{ $color->color }}"></a>
                     @endforeach
                 </div>
-
             </div>
-            <div class="price">
-                Giá
-                <i class="fa-solid fa-chevron-down"></i>
-                <div class="tableprice">
-                    <ul>
-                        <li><a href="/">Tất cả</a></li>
-                        <li><a href="{{ request()->fullUrlWithQuery(['price'=>'asc'])}}">Giá thấp đến cao</a></li>
-                        <li><a href="{{ request()->fullUrlWithQuery(['price'=>'desc'])}}">Giá cao đến thấp</a></li>
-                    </ul>
 
-                </div>
+            <!-- Price Filter -->
+            <div class="filter filter--price">
+                <span class="filter__title">Giá <i class="fa-solid fa-chevron-down"></i></span>
+                <ul class="filter__dropdown">
+                    <li><a href="/">Tất cả</a></li>
+                    <li><a href="{{ request()->fullUrlWithQuery(['price'=>'asc']) }}">Thấp đến cao</a></li>
+                    <li><a href="{{ request()->fullUrlWithQuery(['price'=>'desc']) }}">Cao đến thấp</a></li>
+                </ul>
             </div>
-            <div class="fortable"> <i class="fa-sharp fa-solid fa-table-cells-large"></i></div>
-            <div class="sixtable"> <i style="color: rgb(140, 140, 140);" class="fa-sharp fa-solid fa-table-cells"></i> </div>
         </div>
 
-        <div class="product">
+        <!-- Product Grid -->
+        <div class="product-page__grid">
             @foreach($results as $result)
-            <div class="product-item">
-                <div class="product-img">
-                    <img src="/user-asset/img/{{ $result->sp_hinh }}" alt="">
-                    @if ($result->sp_sale != 0)
-                    <div class="sale">Sale-{{$result->sp_sale}}%</div>
-
-
-                    @else
+            <div class="product-card">
+                <div class="product-card__img">
+                    <img src="/user-asset/img/{{ $result->sp_hinh }}" alt="{{ $result->sp_ten }}">
+                    @if ($result->sp_sale)
+                    <div class="product-card__sale">-{{ $result->sp_sale }}%</div>
                     @endif
                 </div>
-                <div class="product-actions">
-                    <a href="clmm.vn">
-                        <div class="product-link"></div>
-                    </a>
-                    <a href="">
-                        <div class="button">Tư Vấn</div>
-                    </a>
-                </div>
-                <div class="product-info">
-                    <a href=""> <span> <b>{{ $result->sp_ten }} </b></span></a>
-                    <br>
-                    @if ($result->sp_sale != 0)
-                    <h4 style="text-decoration: line-through; color: red;">
-                        {{ number_format($result->sp_giaBan, 0, ',', '.') }}VND
-                    </h4>
-
+                <div class="product-card__info">
+                    <a href="#" class="product-card__title">{{ $result->sp_ten }}</a>
+                    @if ($result->sp_sale)
                     @php
-                    $tienSale = $result->sp_giaBan - ($result->sp_giaBan * $result->sp_sale) / 100;
+                    $priceSale = $result->sp_giaBan - ($result->sp_giaBan * $result->sp_sale / 100);
                     @endphp
-
-                    <h4> {{ number_format($tienSale, 0, ',', '.') }} VND </h4>
+                    <div class="product-card__price">
+                        <span class="price--old">{{ number_format($result->sp_giaBan,0,',','.') }}₫</span>
+                        <span class="price--new">{{ number_format($priceSale,0,',','.') }}₫</span>
+                    </div>
                     @else
-                    <h4>{{ number_format($result->sp_giaBan, 0, ',', '.') }}VND</h4>
+                    <div class="product-card__price">
+                        <span class="price--new">{{ number_format($result->sp_giaBan,0,',','.') }}₫</span>
+                    </div>
                     @endif
-
                 </div>
-
+                <div class="product-card__actions">
+                    <button class="btn btn--consult">Tư vấn</button>
+                    <a href="#" class="btn btn--view">Xem chi tiết</a>
+                </div>
             </div>
             @endforeach
         </div>
-        {{$results->links()}}
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper">
+            {{ $results->links() }}
+        </div>
+
     </div>
     @endif
 
 </div>
-<div class="dangkibangtien">
-    <div class="MAP">
 
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7333963918236!2d108.24978007500275!3d15.97529308469066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4!5e0!3m2!1svi!2s!4v1686645400615!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<!-- Newsletter -->
+<div class="newsletter">
+    <div class="newsletter__map">
+        <iframe src="https://www.google.com/maps/embed?pb=!..." allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <div class="chu">
-        <div class="dangkibangtin"> Đăng Kí Bảng Tin </div>
-        <div class="dangkibangtinmail">
-            Đăng kí bảng tin để nhận mẫu thiết kế mới nhất
+    <div class="newsletter__content">
+        <h3>Đăng ký bảng tin</h3>
+        <p>Đăng ký để nhận mẫu thiết kế mới nhất mỗi tuần.</p>
+        <form class="newsletter__form">
+            <input type="email" placeholder="Nhập email của bạn...">
+            <button type="submit">Gửi</button>
+        </form>
+        <div class="newsletter__socials">
+            <a href="#" class="social facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="social instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social youtube"><i class="fa-brands fa-youtube"></i></a>
         </div>
-
-        <input type="text" placeholder="Vui lòng nhập email.... " />
-        <input style="height: 40px;width: 50px ; background-color: rgb(0, 0, 0);color: aliceblue; margin-left:-2px ;" type="submit" value="Gửi"> <br>
-        <div class="icon">
-            <a href="" class="facebook">
-                <div class="fa-brands fa-facebook"></div>
-            </a>
-            <a href="" class="instagram">
-                <div class="fa-brands fa-instagram"></div>
-            </a>
-            <a href="" class="youtube">
-                <div class="fa-brands fa-youtube"></div>
-            </a>
-        </div>
-
-
-
     </div>
 </div>
-</div>
+
+<!-- JS: Filter Toggle -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filters = document.querySelectorAll('.filter');
+
+        filters.forEach(filter => {
+            filter.addEventListener('click', e => {
+                e.stopPropagation();
+                filters.forEach(f => {
+                    if (f !== filter) f.classList.remove('active');
+                });
+                filter.classList.toggle('active');
+            });
+        });
+
+        document.addEventListener('click', () => {
+            filters.forEach(f => f.classList.remove('active'));
+        });
+    });
+</script>
+
+@endsection

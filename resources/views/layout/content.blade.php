@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +13,14 @@
 
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('user-asset/CSS/style.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('other')
 </head>
-
+<script>
+    window.Laravel = {
+        userId: {{ auth()->id() ?? 'null' }}
+    };
+</script>
 <body>
     {{-- ===== Top Bar ===== --}}
     <div class="top-bar d-flex justify-content-between align-items-center px-3">
@@ -26,7 +32,7 @@
     <header class="main-header shadow-sm">
         <div class="container d-flex justify-content-between align-items-center py-2">
             <a href="{{ route('viewhome') }}" class="logo">
-                <img src="/user-asset/img/logoshop.jpg" alt="Logo LVT" class="logo-img">
+                <img src="/user-asset/img/logoshop.jpg" alt="Logo" class="logo-img">
             </a>
 
             <nav class="main-nav d-none d-lg-block">
@@ -53,19 +59,26 @@
 
                 {{-- User --}}
                 <div class="user-menu dropdown">
+
+                    @if(auth()->check())
+                    <a class="nav-link dropdown-toggle authCheck" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user-circle fa-lg"></i>
+                    </a>
+                    @else
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user-circle fa-lg"></i>
                     </a>
+                    @endif
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         @if(auth()->check())
-                            <li><a class="dropdown-item" href="{{ route('viewprofile') }}">Tài Khoản</a></li>
-                            @if(auth()->user()->Role==1)
-                                <li><a class="dropdown-item" href="{{ route('index') }}">Trang Quản Lý</a></li>
-                            @endif
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng Xuất</a></li>
+                        <li><a class="dropdown-item" href="{{ route('viewprofile') }}">Tài Khoản</a></li>
+                        @if(auth()->user()->Role==1)
+                        <li><a class="dropdown-item" href="{{ route('index') }}">Trang Quản Lý</a></li>
+                        @endif
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng Xuất</a></li>
                         @else
-                            <li><a class="dropdown-item" href="{{ route('login') }}">Đăng Nhập</a></li>
-                            <li><a class="dropdown-item" href="{{ route('register') }}">Đăng Ký</a></li>
+                        <li><a class="dropdown-item" href="{{ route('register') }}">Đăng Nhập</a></li>
+                        <li><a class="dropdown-item" href="{{ route('register') }}">Đăng Ký</a></li>
                         @endif
                     </ul>
                 </div>
@@ -73,9 +86,12 @@
                 {{-- Cart --}}
                 <a href="{{ Route('viewcart') }}" class="cart-link position-relative">
                     <i class="fa fa-shopping-cart fa-lg"></i>
-                    @if ($user = auth()->user())
-                        <span class="cart-count">{{ DB::table('carts')->where('user_id', $user)->count() }}</span>
+                    @if (auth()->check())
+                    <span class="cart-count">
+                        {{ DB::table('carts')->where('user_id', auth()->id())->count() }}
+                    </span>
                     @endif
+
                 </a>
 
                 {{-- Mobile menu --}}
@@ -134,7 +150,7 @@
             document.getElementById('mobileNav').classList.toggle('open');
         });
 
-        document.querySelectorAll('.dropdown-toggle').forEach(el => {
+        document.querySelectorAll('.authCheck').forEach(el => {
             el.addEventListener('click', e => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -144,4 +160,5 @@
         });
     </script>
 </body>
+
 </html>

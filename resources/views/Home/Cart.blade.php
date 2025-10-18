@@ -1,137 +1,332 @@
 @extends('layout.content')
+
 @section('other')
 <link rel="stylesheet" href="{{ asset('user-asset/CSS/giohang.css') }}">
+<style>
+    /* Reset & Global */
+    body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f5f5;
+        color: #222;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container-cart {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    /* Breadcrumb */
+    .cart-breadcrumb {
+        background: #fff;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .cart-breadcrumb a {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .cart-breadcrumb span {
+        margin: 0 5px;
+        color: #888;
+    }
+
+    .cart-breadcrumb h1 {
+        margin-top: 5px;
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    /* Table */
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .cart-table th {
+        background: #f8f8f8;
+        font-weight: 600;
+    }
+
+    .cart-table img {
+        width: 120px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .cart-table img:hover {
+        transform: scale(1.05);
+    }
+
+    .quantity-input {
+        width: 60px;
+        padding: 5px;
+        text-align: center;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        transition: 0.2s;
+    }
+
+    .quantity-input:focus {
+        outline: none;
+        border-color: #c0392b;
+        box-shadow: 0 0 5px rgba(192, 57, 43, 0.5);
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-update {
+        background: #000;
+        color: #fff;
+    }
+
+    .btn-checkout {
+        background: #c0392b;
+        color: #fff;
+    }
+
+    .btn-checkout:hover {
+        background: #e74c3c;
+    }
+
+    .btn-delete {
+        background: #e74c3c;
+        color: #fff;
+    }
+
+    /* Cart Footer */
+    .cart-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .cart-note {
+        flex: 1;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .cart-note textarea {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        resize: vertical;
+    }
+
+    .cart-summary {
+        flex: 1;
+        max-width: 400px;
+    }
+
+    .cart-summary h2 {
+        font-size: 28px;
+        color: #c0392b;
+        margin-bottom: 15px;
+    }
+
+    .cart-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .cart-actions a,
+    .cart-actions button {
+        flex: 1;
+    }
+
+    /* Newsletter + Map */
+    .cart-newsletter-map {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+
+    .newsletter-box,
+    .map-box {
+        flex: 1;
+        min-width: 300px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .newsletter-box input[type="text"],
+    .newsletter-box input[type="email"] {
+        width: 70%;
+        padding: 10px;
+        border-radius: 5px 0 0 5px;
+        border: 1px solid #ccc;
+    }
+
+    .newsletter-box input[type="submit"] {
+        padding: 10px 20px;
+        border-radius: 0 5px 5px 0;
+        border: none;
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .newsletter-box input[type="submit"]:hover {
+        background: #c0392b;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade {
+        animation: fadeInUp 0.8s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+
+        .cart-footer,
+        .cart-newsletter-map {
+            flex-direction: column;
+        }
+
+        .cart-summary {
+            max-width: 100%;
+        }
+    }
+</style>
 @endsection
+
 @section('content')
+<div class="container-cart">
 
-<body>
-
-    <div class="linksmall">
-
-        <a href="./index.html"> TRANG CHỦ </a>
-        <span>/</span>
-        <a href="">GIỎ HÀNG CỦA BẠN - LVT SHOP
-            <h1><b>GIỎ HÀNG</b></h1>
-        </a>
-
+    <!-- Breadcrumb -->
+    <div class="cart-breadcrumb animate-fade">
+        <a href="/">TRANG CHỦ</a> <span>/</span>
+        <span>GIỎ HÀNG CỦA BẠN</span>
+        <h1>GIỎ HÀNG</h1>
     </div>
 
-
-
-    <style>
-        .table th,
-        .table td {
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
+    <!-- Cart Table -->
     <form action="{{ route('updateQuantityCart') }}" method="POST">
         @csrf
-        <table class="table" style="margin-top: 40px">
+        <table class="cart-table animate-fade">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 200px;">Ảnh</th>
-                    <th scope="col" style="width: 400px;">Sản Phẩm</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Số Lượng</th>
-                    <th scope="col">Tổng Tiền</th>
-                    <th scope="col">Thao Tác</th>
+                    <th>Ảnh</th>
+                    <th>Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Tổng</th>
+                    <th>Thao Tác</th>
                 </tr>
             </thead>
             <tbody>
-                @php
-                $productIds = [];
-
-                @endphp
                 @foreach ($carts as $cart)
-                @php
-                $productIds[] = $cart->product_ma;
-                @endphp
-
+                @php $price = $cart->price * $cart->quantity; @endphp
                 <tr>
-                    <td> <img src="/user-asset/img/{{ $cart->sp_hinh }}" alt="" style="width: 150px; height: 200px;"></td>
-                    <td class="text-center align-middle">
+                    <td><img src="/user-asset/img/{{ $cart->sp_hinh }}" alt="{{ $cart->sp_ten }}"></td>
+                    <td>
                         <a href="/product/{{ $cart->product_ma }}">{{ $cart->sp_ten }}</a>
-                        <br>
-                        <span>Phiên bản: Size {{ $cart->size }} / {{ $cart->color }}<br> Thương hiệu:
-                            LVTSHOP</span>
+                        <p>Size: {{ $cart->size }} / {{ $cart->color }}<br>Thương hiệu: SHOP</p>
                     </td>
                     <td>
-
                         @if ($cart->sp_sale > 0)
-                        <p style="text-decoration: line-through; color: red;">
-                            {{ number_format($cart->sp_giaBan, 0, ',', '.') }} VND
-                        </p>
+                        <p style="text-decoration: line-through; color:red;">{{ number_format($cart->sp_giaBan,0,',','.') }} VND</p>
                         @endif
-                        <p>{{ number_format($cart->price, 0, ',', '.') }} VND</p>
+                        <p>{{ number_format($cart->price,0,',','.') }} VND</p>
                     </td>
                     <td>
                         <input type="number" name="quantity[{{ $cart->id }}]" class="quantity-input" min="1" max="10" value="{{ $cart->quantity }}">
                         <input type="hidden" name="idCartQuantity[]" value="{{ $cart->id }}">
                     </td>
+                    <td>{{ number_format($price,0,',','.') }} VND</td>
                     <td>
-                        <a href="/deleteCart/{{$cart->id}}">X</a>
+                        <a href="/deleteCart/{{$cart->id}}" class="btn btn-delete">Xóa</a>
                     </td>
-                    @php
-                    $price = $cart->price * $cart->quantity;
-                    @endphp
-                    <th>{{ number_format($price, 0, ',', '.') }} VND</th>
+
                 </tr>
                 @endforeach
-                @php
-                session(['productIds' => $productIds]);
-
-                @endphp
             </tbody>
         </table>
-        <div class="home-1">
-            <div class="chuthich">
-                Chú thích <br>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
-            </div>
-            <div class="chithich-1">
-                <div class="tongtien">
-                    Tổng tiền <h1>{{ number_format($total, 0, ',', '.') }} VND</h1>
 
-                </div>
-                <br>
-                <div class="check1">
-                    <div class="capnhat"> <button type="submit" style="background-color: black;color: aliceblue;border: none;">Cập Nhật</button></div>
-                    <div class="thanhtoan"> <a href="{{ route('viewpay') }}" style=" text-decoration: none;color: rgb(255, 255, 255);">Thanh Toán</a> </div>
+        <!-- Footer: Note + Summary -->
+        <div class="cart-footer animate-fade">
+            <div class="cart-note">
+                <label>Ghi chú:</label>
+                <textarea placeholder="Ghi chú cho đơn hàng..."></textarea>
+            </div>
+            <div class="cart-summary">
+                <h2>Tổng tiền: {{ number_format($total,0,',','.') }} VND</h2>
+                <div class="cart-actions">
+                    <button type="submit" class="btn btn-update">Cập Nhật</button>
+                    <a href="{{ route('viewpay') }}" class="btn btn-checkout">Thanh Toán</a>
                 </div>
             </div>
         </div>
     </form>
-    <div class="dangkibangtien">
-        <div class="MAP">
 
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7333963918236!2d108.24978007500275!3d15.97529308469066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4!5e0!3m2!1svi!2s!4v1686645400615!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- Newsletter + Map -->
+    <div class="cart-newsletter-map animate-fade">
+        <div class="map-box">
+            <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
-        <div class="chu">
-            <div class="dangkibangtin"> Đăng Kí Bảng Tin </div>
-            <div class="dangkibangtinmail">
-                Đăng kí bảng tin để nhận mẫu thiết kế mới nhất
-            </div>
-
-            <input type="text" placeholder="Vui lòng nhập email.... " />
-            <input style="height: 40px;width: 50px ; background-color: rgb(0, 0, 0);color: aliceblue; margin-left:-2px ;" type="submit" value="Gửi"> <br>
-            <div class="icon">
-                <a href="" class="facebook">
-                    <div class="fa-brands fa-facebook"></div>
-                </a>
-                <a href="" class="instagram">
-                    <div class="fa-brands fa-instagram"></div>
-                </a>
-                <a href="" class="youtube">
-                    <div class="fa-brands fa-youtube"></div>
-                </a>
-            </div>
-
-
-
+        <div class="newsletter-box">
+            <h3>Đăng Kí Bảng Tin</h3>
+            <p>Nhận mẫu thiết kế mới nhất qua email</p>
+            <form>
+                <input type="email" placeholder="Nhập email của bạn">
+                <input type="submit" value="Gửi">
+            </form>
         </div>
     </div>
-    </div>
-</body>
 
-</html>
+</div>
+@endsection

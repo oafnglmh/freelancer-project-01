@@ -156,7 +156,7 @@ class AdminController extends Controller
             }
             return redirect()->back()->with('success', 'Đã cập nhật thành công');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

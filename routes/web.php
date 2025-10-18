@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
@@ -114,12 +115,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete-role/{id}', [Statistical::class, 'deleteRole']);
     });
     Route::prefix('/order')->group(function () {
-        Route::get('/list', [OrderController::class, 'list']);
+       Route::get('/list', [OrderController::class, 'list']);
         Route::get('/edit/{id}', [OrderController::class, 'store']);
         Route::post('/edit/{id}', [OrderController::class, 'edit']);
         Route::get('/detail/{id}', [OrderController::class, 'detail'])->name('detail');
+    }); 
+    Route::prefix('/messenger')->group(function () {
+        Route::get('/main', [ChatController::class, 'list']);
     });
 });
+// Route::get('/messages/{user_id}', [ChatController::class, 'fetchMessages']);
+// Route::post('/messages/send', [ChatController::class, 'sendMessage']);
 Route::get('/search', [ProductController::class, 'search']);
 Route::post('/updateQuantityCart', [AdminController::class, 'updateQuantityCart'])->name('updateQuantityCart');
 Route::get('/product/{id}', [ProductController::class, 'click']);

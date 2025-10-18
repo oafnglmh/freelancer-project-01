@@ -3,6 +3,7 @@
     max-width: 1250px;
     margin: auto;
     padding: 20px;
+    display: flex;
 }
 
 .breadcrumb {
@@ -27,6 +28,70 @@
     width: 100%;
     border-radius: 10px;
     animation: slideIn 1.2s ease;
+}
+/* Filters */
+.product-filters {
+    display: flex;
+    gap: 20px;
+}
+
+.filter {
+    position: relative;
+    cursor: pointer;
+}
+
+.filter > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    z-index: 10;
+}
+
+.filter.active .filter-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.color-swatch {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin: 4px;
+    border: 1px solid #ccc;
+    transition: all 0.3s;
+}
+
+.color-swatch:hover {
+    transform: scale(1.2);
+    border-color: #000;
+}
+
+.filter-dropdown a:hover {
+    background: #f5b400;
+    color: #000;
 }
 
 /* ======= Sidebar ======= */

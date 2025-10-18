@@ -148,6 +148,18 @@
     </section>
 
 </div>
+<div id="messenger-chat">
+    <a href="{{ auth()->check() ? '/chatify/1' : '#' }}">
+        <div id="messenger-icon">
+            <i class="fa-brands fa-facebook-messenger"></i>
+        </div>
+    </a>
+</div>
+
+<script>
+    const userId = {{ auth()->check() ? auth()->id() : 'null' }};
+    console.log("Current user ID:", userId);
+</script>
 
 {{-- Bootstrap JS --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

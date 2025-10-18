@@ -1,108 +1,210 @@
 @extends('layout.content')
+
 @section('other')
-    <link rel="stylesheet" href="{{ asset('user-asset/CSS/giohang.css') }}">
+<link rel="stylesheet" href="{{ asset('user-asset/CSS/giohang.css') }}">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f5f5f5;
+        color: #222;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container-order {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    /* Breadcrumb */
+    .order-breadcrumb {
+        background: #fff;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .order-breadcrumb a {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .order-breadcrumb span {
+        margin: 0 5px;
+        color: #888;
+    }
+
+    .order-breadcrumb h1 {
+        margin-top: 5px;
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    /* Table */
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .order-table th,
+    .order-table td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .order-table th {
+        background: #f8f8f8;
+        font-weight: 600;
+    }
+
+    .order-table img {
+        width: 100px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .order-table img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Footer section */
+    .order-footer {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+
+    .map-box,
+    .newsletter-box {
+        flex: 1;
+        min-width: 300px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .newsletter-box input[type="text"],
+    .newsletter-box input[type="email"] {
+        width: 70%;
+        padding: 10px;
+        border-radius: 5px 0 0 5px;
+        border: 1px solid #ccc;
+    }
+
+    .newsletter-box input[type="submit"] {
+        padding: 10px 20px;
+        border-radius: 0 5px 5px 0;
+        border: none;
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .newsletter-box input[type="submit"]:hover {
+        background: #c0392b;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade {
+        animation: fadeInUp 0.8s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .order-footer {
+            flex-direction: column;
+        }
+    }
+</style>
 @endsection
+
 @section('content')
+<div class="container-order">
 
-    <body>
+    <!-- Breadcrumb -->
+    <div class="order-breadcrumb animate-fade">
+        <a href="/">TRANG CHỦ</a> <span>/</span>
+        <span>ĐƠN HÀNG CỦA BẠN</span>
+        <h1>CHI TIẾT ĐƠN HÀNG #{{ $id }}</h1>
+    </div>
 
-        <div class="linksmall">
+    <!-- Order Table -->
+    <table class="order-table animate-fade">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Đơn Giá</th>
+                <th>Thành Tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $count = 0; @endphp
+            @foreach ($orders as $order)
+            @php
+            $count++;
+            $subtotal = $order->gia * $order->soluong;
+            @endphp
+            <tr>
+                <td>{{ $count }}</td>
+                <td>
+                    <img src="/user-asset/img/{{ $order->sp_hinh }}" alt="{{ $order->sp_ten }}">
+                    <br>
+                    <a href="/product/{{ $order->ma_sp }}">{{ $order->sp_ten }}</a>
+                    <br>
+                    Size: {{ $order->size }} / {{ $order->color }}
+                </td>
+                <td>{{ $order->soluong }}</td>
+                <td>{{ number_format($order->gia,0,',','.') }} VND</td>
+                <td>{{ number_format($subtotal,0,',','.') }} VND</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-            <a href="./index.html"> TRANG CHỦ </a>
-            <span>/</span>
-            <a href=""> ĐƠN HÀNG CỦA BẠN - LVT SHOP
-                <h1><b>CHI TIẾT ĐƠN HÀNG {{$id}}</b></h1>
-            </a>
-
+    <!-- Footer: Map + Newsletter -->
+    <div class="order-footer animate-fade">
+        <div class="map-box">
+            <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
-
-
-
-        <style>
-            .table th,
-            .table td {
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
-        <form action="">
-            <table class="table" style="margin-top: 40px">
-                <thead>
-                    <tr>
-                        <th scope="col"style="width: 200px;">STT</th>
-                        <th scope="col" style="width: 400px;"> Sản Phẩm</th>
-                        <th scope="col">Số Lượng</th>
-                        <th scope="col">Số Tiền</th>
-                        <th scope="col">Thành Tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $count = 0;
-                    @endphp
-                    @foreach ($orders as $order)
-                        @php
-                            $count = $count + 1;
-                        @endphp
-                        <tr>
-                            <th scope="row"> {{ $count }}</th>
-                            <td><img style="width: 100px; height: 130px;" src="/user-asset/img/{{ $order->sp_hinh }}"
-                                    alt="">  <br>
-                               <a style="text-decoration: none " href="/product/{{ $order->ma_sp}}">{{ $order->sp_ten }}</a>  <br> {{ $order->size }}/{{ $order->color }}
-
-                            </td>
-                            <td>{{ $order->soluong }}</td>
-                            <td>{{ number_format($order->gia, 0, ',', '.') }} VND</td>
-                            <@php
-                                $sum = $order->gia * $order->soluong;
-                            @endphp <td> {{ number_format($sum, 0, ',', '.') }} VND
-                                </td>
-                        </tr>
-                    @endforeach
-
-                </tbody>
-            </table>
-
-        </form>
-
-
-
+        <div class="newsletter-box">
+            <h3>Đăng Kí Bảng Tin</h3>
+            <p>Nhận mẫu thiết kế mới nhất qua email</p>
+            <form>
+                <input type="email" placeholder="Nhập email của bạn">
+                <input type="submit" value="Gửi">
+            </form>
         </div>
-        <div class="dangkibangtien">
-            <div class="MAP">
+    </div>
 
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7333963918236!2d108.24978007500275!3d15.97529308469066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4!5e0!3m2!1svi!2s!4v1686645400615!5m2!1svi!2s"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="chu">
-                <div class="dangkibangtin"> Đăng Kí Bảng Tin </div>
-                <div class="dangkibangtinmail">
-                    Đăng kí bảng tin để nhận mẫu thiết kế mới nhất
-                </div>
-
-                <input type="text" placeholder="Vui lòng nhập email.... " />
-                <input
-                    style="height: 40px;width: 50px ; background-color: rgb(0, 0, 0);color: aliceblue; margin-left:-2px ;"
-                    type="submit" value="Gửi"> <br>
-                <div class="icon">
-                    <a href="" class="facebook">
-                        <div class="fa-brands fa-facebook"></div>
-                    </a>
-                    <a href="" class="instagram">
-                        <div class="fa-brands fa-instagram"></div>
-                    </a>
-                    <a href="" class="youtube">
-                        <div class="fa-brands fa-youtube"></div>
-                    </a>
-                </div>
-
-
-
-            </div>
-        </div>
-
-    </body>
-
-    </html>
+</div>
+@endsection

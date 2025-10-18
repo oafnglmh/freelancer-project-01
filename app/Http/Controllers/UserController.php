@@ -53,13 +53,15 @@ class UserController extends Controller
     {
         $user = Auth::user();
         if ($user) {
+            $now = now();
             $orderId = DB::table('orders')->insertGetId([
                 'user_id' => $user->id,
                 'diachi' => $request->input('address'),
                 'name' => $request->input('username'),
                 'sodienthoai' => $request->input('tel'),
                 'tongtien' => $request->input('tongtien'),
-                'id_status_orders' => 4
+                'id_status_orders' => 1,
+                'created_at' => $now,
             ]);
             $carts = DB::table('carts')
                 ->join('products', 'products.sp_ma', '=', 'carts.product_ma')
@@ -72,7 +74,8 @@ class UserController extends Controller
                     'size' => $cart->size,
                     'ma_sp' => $cart->product_ma,
                     'soluong' => $cart->quantity,
-                    'gia' => $cart->price
+                    'gia' => $cart->price,
+                    'created_at' => $now,
                 ]);
             }
             DB::table('carts')->delete();
@@ -98,14 +101,27 @@ class UserController extends Controller
             return redirect(route("register")); // Chuyển hướng người dùng đến trang đăng ký
         }
         // Nếu email không tồn tại, bạn có thể thêm người dùng mới
-        DB::table('users')->insert([
+       $userId = DB::table('users')->insertGetId([
             'email' => $request->email,
             'name' => $request->name,
             'number_phone' => $request->number_phone,
             'password' => bcrypt($request->password),
-            'Role' => '0'
+            'Role' => '0',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        return redirect(route("register"));
+
+        $currentTimestamp = Carbon::now()->format('YmdHis'); // yyyyMMddHHmmss
+        DB::table('ch_messages')->insert([
+            'id' => $currentTimestamp,
+            'from_id' => 1,
+            'to_id' => $userId,
+            'body' => 'Chào mừng bạn đến với trang web của chúng tôi',
+            'seen' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        return redirect()->route("register")->with('success_register', 'Đăng ký thành công! Vui lòng đăng nhập.');
         // Sau khi thêm thành công, bạn có thể thực hiện các hành động khác, ví dụ: đăng nhập người dùng, chuyển hướng, vv.
     }
     public function register()
@@ -165,22 +181,11 @@ class UserController extends Controller
                 ->join('colors', 'colors.id', '=', 'products.color_id')
                 ->select('carts.*', 'products.sp_ten as sp_ten', 'products.sp_sale as sp_sale', 'products.sp_giaBan as sp_giaBan', 'products.sp_hinh as sp_hinh', 'colors.color as color')
                 ->where('user_id', $user->id)->get();
-            // dd($carts);
-            // $carts=DB::table('carts')
-            // ->join('products','products.sp_ma','=','carts.product_ma')
-            // ->join('colors','colors.id','=','products.color_id')
-            // ->select('carts.*','products.sp_ten as sp_ten','products.sp_giaBan as sp_giaBan','products.sp_hinh as sp_hinh','colors.color as color')
-            // ->where('user_id',$user->id)->get();
             $total = 0;
             foreach ($carts as $cart) {
                 $total = $total + $cart->price * $cart->quantity;
             }
             return view('Home.pay', compact('type_products', 'carts', 'total'));
-
-            // $products = Product::whereIn('sp_ma', $productIds)->get();
-            // dd( $products);
-
-
         } else {
             return view('Home.pay', compact('type_products'));
         }
@@ -190,6 +195,11 @@ class UserController extends Controller
 
         $user = Auth::user();
         $size = $request->input('size');
+        if (!$size) {
+            return redirect()->back()->with([
+                'error' => 'Vui lòng chọn kích thước trước khi thêm vào giỏ hàng'
+            ]);
+        }
         $check = DB::table('carts')
             ->where('user_id', $user->id)
             ->where('product_ma', $id)
@@ -216,9 +226,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function viewproduct_desciption()
-    {
-    }
+    public function viewproduct_desciption() {}
 
     public function viewproductsale()
     {
@@ -367,7 +375,7 @@ class UserController extends Controller
             $user->token = $token;
             $user->save();
             Mail::send('home.CheckForgetPass', compact('user'), function ($email) use ($user) {
-                $email->subject('LVT SHOP - Lấy lại mật khẩu của bạn !');
+                $email->subject('SHOP - Lấy lại mật khẩu của bạn !');
                 $email->to($user->email, $user->name);
             });
 

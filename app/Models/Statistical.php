@@ -16,7 +16,7 @@ class Statistical extends Model
         $totals = DB::table('orders')->distinct()->get();
         $money = 0;
         foreach ($totals as $total) {
-            if ($total->id_status_orders == "2") {
+            if ($total->id_status_orders == "3") {
                 $money += $total->tongtien;
             }
         }
@@ -25,54 +25,36 @@ class Statistical extends Model
     // Tính lợi nhuận của sản phẩm
     public function profitMoney()
     {
-
         $totals = DB::table('detail_orders')
             ->join('orders', 'orders.id_donhang', '=', 'detail_orders.id_order')
             ->join('products', 'detail_orders.ma_sp', '=', 'products.sp_ma')
+            ->where('orders.id_status_orders', 3)
             ->select(
-                'detail_orders.*',
+                'detail_orders.soluong',
                 'products.sp_giaBan as giaBan',
                 'products.sp_giaGoc as giaGoc',
-                'products.sp_sale as sale',
-                'orders.tongtien as tongTien',
-                'orders.id_status_orders as id_status_orders'
+                'products.sp_sale as sale'
             )
-            ->distinct()
             ->get();
 
         $productMoney = 0;
         $OrderMoney = 0;
-        $sum = 0;
 
         foreach ($totals as $total) {
-            //Giá gốc của sản phẩm
-            if ($total->id_status_orders == "2") {
-
-
-                $productMoney += $total->giaGoc * $total->soluong;
-            }
-
-            if ($total->id_status_orders == "2") {
-
-                //tiền sản phẩm bán
-                $tienSale = ($total->giaBan - ($total->giaBan * $total->sale) / 100) * $total->soluong;
-
-                $OrderMoney = $OrderMoney + $tienSale;
-                // tiền sản phẩm quay về không
-                $tienSale = 0;
-            }
+            $productMoney += $total->giaGoc * $total->soluong;
+            $OrderMoney += ($total->giaBan - ($total->giaBan * $total->sale) / 100) * $total->soluong;
         }
-        //tổng tiền lợi nhuận = tổng doanh thuc- tổng tiền sản phẩm bán được với giá gốc
-        $sum = $OrderMoney - $productMoney;
-        return $sum;
+
+        return $OrderMoney - $productMoney;
     }
+
 
     public function totalOrder()
     {
         $totals = DB::table('orders')->get();
         $order = 0;
         foreach ($totals as $total) {
-            if ($total->id_status_orders == "2") {
+            if ($total->id_status_orders == "3") {
                 $order++;
             }
         }
@@ -82,11 +64,11 @@ class Statistical extends Model
     {
         $sqls = DB::table('users')
             ->select('users.*', 'order_totals.total_amount', 'order_counts.order_count')
-            ->leftJoin(DB::raw('(SELECT user_id, SUM(CASE WHEN id_status_orders = 2 THEN tongtien ELSE 0 END) as total_amount FROM orders GROUP BY user_id) as order_totals'), function ($join) {
+            ->leftJoin(DB::raw('(SELECT user_id, SUM(CASE WHEN id_status_orders = 3 THEN tongtien ELSE 0 END) as total_amount FROM orders GROUP BY user_id) as order_totals'), function ($join) {
                 $join->on('users.id', '=', 'order_totals.user_id');
             })
 
-            ->leftJoin(DB::raw('(SELECT user_id, COUNT(CASE WHEN id_status_orders = 2 THEN 1 END) as order_count FROM orders GROUP BY user_id) as order_counts'), function ($join) {
+            ->leftJoin(DB::raw('(SELECT user_id, COUNT(CASE WHEN id_status_orders = 3 THEN 1 END) as order_count FROM orders GROUP BY user_id) as order_counts'), function ($join) {
                 $join->on('users.id', '=', 'order_counts.user_id');
             })
 
@@ -130,15 +112,13 @@ class Statistical extends Model
         }
     }
 
-    public function getOderDay()
-    {
-    }
+    public function getOderDay() {}
     // Dữ liệu tháng
     public function getOrderData()
     {
         // Get the data from the database
         $orderData = Order::selectRaw('MONTH(created_at) as month, SUM(tongtien) as total_amount')
-            ->where('id_status_orders', 2)
+            ->where('id_status_orders', 3)
             ->groupBy('month')
             ->get();
 

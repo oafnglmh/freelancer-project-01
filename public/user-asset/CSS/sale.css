@@ -1,0 +1,311 @@
+/* ---------------- Reset & Basics ---------------- */
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    background: #fff;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* ---------------- Breadcrumb ---------------- */
+.breadcrumb {
+    margin: 25px auto;
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+    animation: fadeIn 1s ease forwards;
+}
+.breadcrumb a {
+    color: #000;
+    text-decoration: none;
+}
+.breadcrumb a:hover {
+    color: #ff4c4c;
+}
+
+/* ---------------- Banner ---------------- */
+.banner img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    animation: zoomIn 1.2s ease forwards;
+}
+
+/* ---------------- Layout ---------------- */
+.product-page {
+    display: flex;
+    gap: 25px;
+    max-width: 1300px;
+    margin: 40px auto;
+    flex-wrap: wrap;
+}
+
+/* ---------------- Sidebar ---------------- */
+.sidebar {
+    width: 250px;
+    background: #f8f8f8;
+    padding: 25px;
+    border-radius: 12px;
+    animation: slideLeft 1s ease forwards;
+}
+.sidebar__menu li {
+    list-style: none;
+    margin: 12px 0;
+}
+.sidebar__menu a {
+    text-decoration: none;
+    color: #333;
+}
+.sidebar__menu a:hover {
+    color: #ff4c4c;
+    padding-left: 5px;
+}
+
+/* ---------------- Product Section ---------------- */
+.product-section {
+    flex: 1;
+}
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.product-header h3 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* ---------------- Filters ---------------- */
+.filter-tools {
+    display: flex;
+    gap: 15px;
+}
+.filter {
+    position: relative;
+    font-weight: 500;
+}
+.filter-dropdown {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    display: none;
+    z-index: 20;
+}
+.filter:hover .filter-dropdown {
+    display: block;
+}
+.color-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    margin: 4px;
+    display: inline-block;
+}
+.color-dot:hover {
+    transform: scale(1.2);
+}
+
+/* ---------------- Product Grid ---------------- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+.product-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: fadeIn 1.2s ease forwards;
+}
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.product-card__img {
+    position: relative;
+    overflow: hidden;
+}
+.product-card__img img {
+    width: 100%;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.product-card:hover img {
+    transform: scale(1.08);
+}
+.product-card__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff4c4c;
+    color: #fff;
+    font-size: 13px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    animation: pulse 1.5s infinite;
+}
+
+/* ---------------- Product Info ---------------- */
+.product-card__info {
+    text-align: center;
+    padding: 15px;
+}
+.product-card__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 6px;
+}
+.product-card__price {
+    font-weight: bold;
+    color: #111;
+}
+.product-card__price--old {
+    text-decoration: line-through;
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* ---------------- Product Actions ---------------- */
+.product-card__actions {
+    text-align: center;
+    padding: 15px 0 20px;
+}
+.btn-action {
+    background: #222;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+}
+.btn-action:hover {
+    background: #ff4c4c;
+    transform: scale(1.05);
+}
+
+/* ---------------- Newsletter ---------------- */
+.newsletter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f8f8;
+    border-radius: 14px;
+    padding: 40px;
+    flex-wrap: wrap;
+    margin: 70px auto;
+    max-width: 1200px;
+    animation: fadeIn 1.5s ease forwards;
+}
+.newsletter__map iframe {
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+}
+.newsletter__content {
+    flex: 1;
+    margin-left: 40px;
+}
+.newsletter__form {
+    display: flex;
+    margin: 15px 0;
+}
+.newsletter__form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px 0 0 6px;
+}
+.newsletter__form button {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+}
+.newsletter__socials a {
+    color: #222;
+    margin-right: 12px;
+    font-size: 20px;
+}
+.newsletter__socials a:hover {
+    color: #ff4c4c;
+}
+
+/* ---------------- Animations ---------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes zoomIn {
+    from {
+        transform: scale(1.05);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 992px) {
+    .product-page {
+        flex-direction: column;
+        align-items: center;
+    }
+    .sidebar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .newsletter {
+        flex-direction: column;
+        text-align: center;
+    }
+    .newsletter__map iframe {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 20px;
+    }
+    .newsletter__content {
+        margin-left: 0;
+    }
+}
