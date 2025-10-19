@@ -14,7 +14,7 @@
 
 <!-- Banner -->
 <div class="banner">
-    <img src="{{ asset('user-asset/img/1700062016-slide.webp') }}" alt="Bộ sưu tập" class="fade-in">
+    <img src="https://res.klook.com/image/upload/w_750,h_469,c_fill,q_85/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xh1tentbdn0tvhcg6zjh.jpg" alt="Bộ sưu tập" class="fade-in">
 </div>
 
 <!-- Collection Section -->
@@ -24,7 +24,7 @@
             @for ($i = 0; $i < 4; $i++)
                 <div class="product-card">
                 <div class="product-img">
-                    <img src="{{ asset('user-asset/img/16987690410-product.webp') }}" alt="Sản phẩm {{ $i + 1 }}">
+                    <img src="{{ asset('user-asset/img/tui01.jpg') }}" alt="Sản phẩm {{ $i + 1 }}">
                 </div>
                 <div class="product-info">
                     <h3>Sản phẩm {{ $i + 1 }}</h3>
@@ -49,8 +49,8 @@
     </div>
 
     <div class="collection-right">
-        <img src="{{ asset('user-asset/img/16987690410-product.webp') }}" alt="">
-        <img src="{{ asset('user-asset/img/16987690410-product.webp') }}" alt="">
+        <img src="{{ asset('user-asset/img/tui01.jpg') }}" alt="">
+        <img src="{{ asset('user-asset/img/tui01.jpg') }}" alt="">
     </div>
 </section>
 

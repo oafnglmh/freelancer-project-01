@@ -150,14 +150,14 @@
             document.getElementById('mobileNav').classList.toggle('open');
         });
 
-        document.querySelectorAll('.authCheck').forEach(el => {
-            el.addEventListener('click', e => {
-                e.preventDefault();
-                e.stopPropagation();
-                const menu = el.nextElementSibling;
-                menu.classList.toggle('show');
-            });
-        });
+        // document.querySelectorAll('.authCheck').forEach(el => {
+        //     el.addEventListener('click', e => {
+        //         e.preventDefault();
+        //         e.stopPropagation();
+        //         const menu = el.nextElementSibling;
+        //         menu.classList.toggle('show');
+        //     });
+        // });
     </script>
 </body>
 

@@ -10,7 +10,7 @@
 </div>
 
 <section class="banner">
-    <img src="{{ asset('user-asset/img/home_new_banner_2.webp') }}" alt="Tất cả sản phẩm">
+    <img src="https://tisdeny.com/wp-content/uploads/2025/03/7-loi-thuong-gap-khi-mua-do-da-nam-va-cach-tranh_02.jpg" alt="Tất cả sản phẩm">
 </section>
 
 <section class="product-page container">

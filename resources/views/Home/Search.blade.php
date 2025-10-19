@@ -76,7 +76,12 @@
                     @endif
                 </div>
                 <div class="product-card__info">
-                    <a href="#" class="product-card__title">{{ $result->sp_ten }}</a>
+                    <a href="#" class="product-card__title" class="mt-3 fw-semibold" style="
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: block;
+                    ">{{ $result->sp_ten }}</a>
                     @if ($result->sp_sale)
                     @php
                     $priceSale = $result->sp_giaBan - ($result->sp_giaBan * $result->sp_sale / 100);

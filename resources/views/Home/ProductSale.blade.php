@@ -15,7 +15,7 @@
 
 <!-- Banner -->
 <div class="banner zoom-in">
-    <img src="{{ asset('user-asset/img/allsp.webp') }}" alt="Tất cả sản phẩm">
+    <img src="https://png.pngtree.com/thumb_back/fw800/background/20250710/pngtree-brown-leather-goods-set-image_17492002.webp" alt="Tất cả sản phẩm">
 </div>
 
 <!-- Layout -->
